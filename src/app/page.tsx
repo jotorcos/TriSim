@@ -1,34 +1,61 @@
 'use client';
 
 import { getTranslations } from '@/lib/i18n';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [translations, setTranslations] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadTranslations() {
-      const data = await getTranslations('home');
-      setTranslations(data);
+      try {
+        const data = await getTranslations('home');
+        setTranslations(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      }
     }
     loadTranslations();
   }, []);
 
+  if (error) {
+    return <div>Error loading translations: {error}</div>;
+  }
+
   if (!translations) return <div>Loading...</div>;
 
-  const { welcome, intro, start, learnMore } = translations;
+  const { welcome, intro, start, learnMore, racePacing, transitions } =
+    translations;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-4xl font-bold text-blue-600 mb-4">{welcome}</h1>
       <p className="text-lg text-center max-w-lg mb-6">{intro}</p>
       <div className="flex gap-4">
-        <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-500 transition">
-          {start}
-        </button>
-        <button className="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition">
-          {learnMore}
-        </button>
+        <Link href="/start">
+          <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-500 transition">
+            {start}
+          </button>
+        </Link>
+        <Link href="/learn-more">
+          <button className="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition">
+            {learnMore}
+          </button>
+        </Link>
+      </div>
+      <div className="mt-10 flex gap-6">
+        <Link href="/racePacing">
+          <button className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-500 transition">
+            {racePacing}
+          </button>
+        </Link>
+        <Link href="/transitions">
+          <button className="bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-500 transition">
+            {transitions}
+          </button>
+        </Link>
       </div>
     </div>
   );

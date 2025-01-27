@@ -1,4 +1,5 @@
 import Footer from '@/components/Footer'; // Importing the Footer component
+import GoBack from '@/components/GoBack';
 import Header from '@/components/Header'; // Importing the Header component
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -31,6 +32,8 @@ export default function RootLayout({
       >
         {/* Include the Header here */}
         <Header />
+
+        <GoBack />
 
         {/* Main content will be rendered here */}
         <main className="flex-grow">{children}</main>

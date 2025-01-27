@@ -1,7 +1,7 @@
 'use client';
 
 import { getTranslations } from '@/lib/i18n';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Checklist() {
   const [translations, setTranslations] = useState<any>(null);

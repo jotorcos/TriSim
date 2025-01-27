@@ -1,8 +1,6 @@
 'use client';
 
 import Card from '@/components/Card';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
 import { getTranslations } from '@/lib/i18n';
 import { useEffect, useState } from 'react';
 
@@ -30,7 +28,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <main className="px-4 py-8 bg-gray-100">
         <h2 className="text-3xl font-semibold mb-6">{translations.welcome}</h2>
         <p className="mb-8">{translations.intro}</p>
@@ -53,7 +50,6 @@ export default function Home() {
           />
         </div>
       </main>
-      <Footer />
     </>
   );
 }

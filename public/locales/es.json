@@ -5,7 +5,8 @@
     "start": "Comenzar",
     "learnMore": "Aprende más",
     "racePacing": "Calculadora de Estrategia de Carrera",
-    "transitions": "Practica las transiciones"
+    "transitions": "Practica las transiciones",
+    "checklist": "Lista de Verificación"
   },
   "racePacing": {
     "title": "Calculadora de Estrategia de Carrera",
@@ -32,5 +33,19 @@
     "item4": "Zapatillas de correr",
     "item5": "Número de dorsal",
     "save": "Guardar Lista"
+  },
+  "header": {
+    "welcome": "TriSim",
+    "home": "Inicio",
+    "racePacing": "Tiempos",
+    "transitions": "Transiciones"
+  },
+  "footer": {
+    "footerText": "© 2025 TriSim. Todos los derechos reservados.",
+    "contact": "Contacto"
+  },
+  "card": {
+    "learnMore": "Ver",
+    "practiceNow": "Practica ahora"
   }
 }

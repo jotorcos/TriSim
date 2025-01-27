@@ -29,17 +29,21 @@ export default function Checklist() {
     translations;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-600 mb-4">{title}</h1>
-      <p className="text-lg text-center max-w-lg mb-6">{intro}</p>
-      <ul className="list-disc mb-6">
-        <li>{item1}</li>
-        <li>{item2}</li>
-        <li>{item3}</li>
-        <li>{item4}</li>
-        <li>{item5}</li>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-8 lg:px-16 py-8">
+      <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4 text-center">
+        {title}
+      </h1>
+      <p className="text-base sm:text-lg text-center max-w-3xl mb-6">{intro}</p>
+
+      <ul className="list-disc space-y-2 mb-6 max-w-xl mx-auto">
+        <li className="text-base sm:text-lg">{item1}</li>
+        <li className="text-base sm:text-lg">{item2}</li>
+        <li className="text-base sm:text-lg">{item3}</li>
+        <li className="text-base sm:text-lg">{item4}</li>
+        <li className="text-base sm:text-lg">{item5}</li>
       </ul>
-      <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-500 transition">
+
+      <button className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-300">
         {save}
       </button>
     </div>

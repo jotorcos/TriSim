@@ -28,42 +28,32 @@ export default function Home() {
 
   if (!translations) return <div>Loading...</div>;
 
-  const { welcome, intro, start, learnMore, racePacing, transitions } =
-    translations;
-
   return (
-    <div>
+    <>
       <Header />
-      <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <h1 className="text-4xl font-bold text-blue-600 mb-4">{welcome}</h1>
-        <p className="text-lg text-center max-w-lg mb-6">{intro}</p>
+      <main className="px-4 py-8 bg-gray-100">
+        <h2 className="text-3xl font-semibold mb-6">{translations.welcome}</h2>
+        <p className="mb-8">{translations.intro}</p>
 
-        <div className="flex gap-4 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <Card
-            title={racePacing}
-            description="Learn about race pacing strategies."
+            title={translations.racePacing}
+            description="Calcula tu estrategia"
             link="/racePacing"
           />
           <Card
-            title={transitions}
-            description="Master the transitions for a smooth triathlon."
+            title={translations.transitions}
+            description="Practica tus transiciones"
             link="/transitions"
           />
-        </div>
-        <div className="flex gap-4">
-          <a href="/start">
-            <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-500 transition">
-              {start}
-            </button>
-          </a>
-          <a href="/learn-more">
-            <button className="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition">
-              {learnMore}
-            </button>
-          </a>
+          <Card
+            title={translations.checklist}
+            description="Lista de verificación para la carrera"
+            link="/checklist"
+          />
         </div>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

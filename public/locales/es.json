@@ -27,12 +27,17 @@
   "checklist": {
     "title": "Lista de Verificación para el Día de la Carrera",
     "intro": "Asegúrate de no olvidar nada el día de la carrera con nuestra lista de verificación.",
-    "item1": "Gafas de natación",
-    "item2": "Traje de baño",
-    "item3": "Ciclismo",
-    "item4": "Zapatillas de correr",
-    "item5": "Número de dorsal",
-    "save": "Guardar Lista"
+    "save": "Guardar Lista",
+    "items": [
+      "Tritraje",
+      "Gafas de natación",
+      "Zapatillas de correr (con cordones elásticos)",
+      "Bici",
+      "Zapatillas bici",
+      "Dorsal",
+      "Portadorsal",
+      "Chip de cronometraje"
+    ]
   },
   "header": {
     "welcome": "TriSim",

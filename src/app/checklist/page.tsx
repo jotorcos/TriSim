@@ -8,8 +8,7 @@ export default function Checklist() {
   if (error) return <div>Error loading translations: {error}</div>;
   if (!translations) return <div>Loading...</div>;
 
-  const { title, intro, item1, item2, item3, item4, item5, save } =
-    translations;
+  const { title, intro, items, save } = translations;
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 px-4 sm:px-8 lg:px-16 py-8">
@@ -19,11 +18,11 @@ export default function Checklist() {
       <p className="text-base sm:text-lg text-center max-w-3xl mb-6">{intro}</p>
 
       <ul className="list-disc space-y-2 mb-6 max-w-xl mx-auto">
-        <li className="text-base sm:text-lg">{item1}</li>
-        <li className="text-base sm:text-lg">{item2}</li>
-        <li className="text-base sm:text-lg">{item3}</li>
-        <li className="text-base sm:text-lg">{item4}</li>
-        <li className="text-base sm:text-lg">{item5}</li>
+        {items.map((item: string, index: number) => (
+          <li key={index} className="text-base sm:text-lg">
+            {item}
+          </li>
+        ))}
       </ul>
 
       <button className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-300">

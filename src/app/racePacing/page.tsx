@@ -1,34 +1,18 @@
 'use client';
 
-import { getTranslations } from '@/lib/i18n';
-import { useEffect, useState } from 'react';
+import { useTranslations } from '@/hooks/useTranslations';
+import { useState } from 'react';
 
 export default function RacePacing() {
-  const [translations, setTranslations] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
-
   const [swimTime, setSwimTime] = useState<number>(0);
   const [bikeTime, setBikeTime] = useState<number>(0);
   const [runTime, setRunTime] = useState<number>(0);
 
-  useEffect(() => {
-    async function loadTranslations() {
-      try {
-        const data = await getTranslations('racePacing');
-        setTranslations(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      }
-    }
-    loadTranslations();
-  }, []);
-
   const totalTime = swimTime + bikeTime + runTime;
 
-  if (error) {
-    return <div>Error loading translations: {error}</div>;
-  }
+  const { translations, error } = useTranslations('racePacing');
 
+  if (error) return <div>Error loading translations: {error}</div>;
   if (!translations) return <div>Loading...</div>;
 
   const {

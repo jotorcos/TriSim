@@ -1,30 +1,14 @@
 'use client';
 
-import { getTranslations } from '@/lib/i18n';
+import { useTranslations } from '@/hooks/useTranslations';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function Header() {
-  const [translations, setTranslations] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { translations, error } = useTranslations('header');
 
-  useEffect(() => {
-    async function loadTranslations() {
-      try {
-        const data = await getTranslations('header');
-        setTranslations(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      }
-    }
-    loadTranslations();
-  }, []);
-
-  if (error) {
-    return <div>Error loading translations: {error}</div>;
-  }
-
+  if (error) return <div>Error loading translations: {error}</div>;
   if (!translations) return <div>Loading...</div>;
 
   return (

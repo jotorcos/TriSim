@@ -1,28 +1,11 @@
 'use client';
 
-import { getTranslations } from '@/lib/i18n';
-import { useEffect, useState } from 'react';
+import { useTranslations } from '@/hooks/useTranslations';
 
 export default function Transitions() {
-  const [translations, setTranslations] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { translations, error } = useTranslations('transitions');
 
-  useEffect(() => {
-    async function loadTranslations() {
-      try {
-        const data = await getTranslations('transitions');
-        setTranslations(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      }
-    }
-    loadTranslations();
-  }, []);
-
-  if (error) {
-    return <div>Error loading translations: {error}</div>;
-  }
-
+  if (error) return <div>Error loading translations: {error}</div>;
   if (!translations) return <div>Loading...</div>;
 
   const { title, intro, t1, t2, practiceNow } = translations;

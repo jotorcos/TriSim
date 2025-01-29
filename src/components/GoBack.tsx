@@ -1,10 +1,16 @@
 'use client';
 
+import { useTranslations } from '@/hooks/useTranslations';
 import { usePathname, useRouter } from 'next/navigation';
 
 export default function GoBack() {
   const router = useRouter();
   const pathname = usePathname();
+
+  const { translations, error } = useTranslations('goBack');
+
+  if (error) return <div>Error loading translations: {error}</div>;
+  if (!translations) return '';
 
   // Function to handle the back navigation
   const goBack = () => {
@@ -35,7 +41,7 @@ export default function GoBack() {
           d="M15 19l-7-7 7-7"
         />
       </svg>
-      <span>Atrás</span>
+      <span>{translations.back}</span>
     </button>
   );
 }

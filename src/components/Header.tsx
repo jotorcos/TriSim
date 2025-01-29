@@ -9,12 +9,14 @@ export default function Header() {
   const { translations, error } = useTranslations('header');
 
   if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return <div>Loading...</div>;
+  if (!translations) return '';
 
   return (
     <header className="bg-blue-600 text-white p-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <h1 className="text-3xl font-bold">{translations.welcome}</h1>
+        <Link href="/" className="text-3xl font-bold">
+          {translations.welcome}
+        </Link>
         <button
           className="lg:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

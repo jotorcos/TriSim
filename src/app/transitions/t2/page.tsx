@@ -6,7 +6,7 @@ export default function TransitionT2() {
   const { translations, error } = useTranslations('transitions');
 
   if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return <div>Loading...</div>;
+  if (!translations) return '';
 
   const { title, intro, t1, t2, practiceNow } = translations;
 

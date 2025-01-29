@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from '@/hooks/useTranslations';
+import Link from 'next/link';
 
 interface CardProps {
   title: string;
@@ -12,10 +13,10 @@ export default function Card({ title, description, link }: CardProps) {
   const { translations, error } = useTranslations('card');
 
   if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return <div>Loading...</div>;
+  if (!translations) return '';
 
   return (
-    <a
+    <Link
       href={link}
       className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center sm:flex-row sm:space-x-4"
     >
@@ -23,6 +24,6 @@ export default function Card({ title, description, link }: CardProps) {
         <h3 className="text-2xl font-semibold mb-4">{title}</h3>
         <p className="mb-4">{description}</p>
       </div>
-    </a>
+    </Link>
   );
 }

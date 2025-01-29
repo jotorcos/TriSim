@@ -6,7 +6,7 @@ export default function Checklist() {
   const { translations, error } = useTranslations('checklist');
 
   if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return <div>Loading...</div>;
+  if (!translations) return '';
 
   const { title, intro, items, save } = translations;
 

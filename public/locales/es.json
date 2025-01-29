@@ -6,7 +6,7 @@
     "learnMore": "Aprende más",
     "racePacing": "Estrategia de Carrera",
     "transitions": "Practica las transiciones",
-    "checklist": "Lista de Verificación"
+    "checklist": "Checklist"
   },
   "racePacing": {
     "title": "Estrategia de Carrera",
@@ -22,11 +22,19 @@
     "intro": "Domina las transiciones entre las disciplinas para optimizar tu rendimiento en carrera.",
     "t1": "Transición 1 (Natación a Ciclismo)",
     "t2": "Transición 2 (Ciclismo a Carrera a pie)",
-    "practiceNow": "Practica ahora"
+    "practiceNow": "Practica ahora",
+    "goggles": "Quitar gafas de natación",
+    "helmet": "Ponerse el casco",
+    "bib": "Poner portadorsal",
+    "bike": "Coger bicicleta",
+    "time": "Tiempo",
+    "startTimer": "Iniciar cronómetro",
+    "stopTimer": "Detener cronómetro",
+    "reset": "Reiniciar"
   },
   "checklist": {
-    "title": "Lista de Verificación para el Día de la Carrera",
-    "intro": "Asegúrate de no olvidar nada el día de la carrera con nuestra lista de verificación.",
+    "title": "Checklist para el Día de la Carrera",
+    "intro": "Asegúrate de no olvidar nada el día de la carrera con nuestra checklist.",
     "save": "Guardar Lista",
     "items": [
       "Tritraje",
@@ -44,6 +52,9 @@
     "home": "Inicio",
     "racePacing": "Tiempos",
     "transitions": "Transiciones"
+  },
+  "goBack": {
+    "back": "Atrás"
   },
   "footer": {
     "footerText": "© 2025 TriSim. Todos los derechos reservados.",

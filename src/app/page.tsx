@@ -7,7 +7,7 @@ export default function Home() {
   const { translations, error } = useTranslations('home');
 
   if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return <div>Loading...</div>;
+  if (!translations) return '';
 
   return (
     <>
@@ -28,7 +28,7 @@ export default function Home() {
           />
           <Card
             title={translations.checklist}
-            description="Lista de verificación para la carrera"
+            description="Checklist para la carrera"
             link="/checklist"
           />
         </div>

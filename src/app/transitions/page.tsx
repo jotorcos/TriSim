@@ -1,12 +1,13 @@
 'use client';
 
 import { useTranslations } from '@/hooks/useTranslations';
+import Link from 'next/link';
 
 export default function Transitions() {
   const { translations, error } = useTranslations('transitions');
 
   if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return <div>Loading...</div>;
+  if (!translations) return '';
 
   const { title, intro, t1, t2, practiceNow } = translations;
 
@@ -19,14 +20,14 @@ export default function Transitions() {
 
       <div className="w-full max-w-md space-y-4 mb-8">
         <div className="bg-white p-4 rounded-lg shadow-md">
-          <a href="transitions/t1" className="text-xl font-semibold">
+          <Link href="transitions/t1" className="text-xl font-semibold">
             {t1}
-          </a>
+          </Link>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
-          <a href="transitions/t2" className="text-xl font-semibold">
+          <Link href="transitions/t2" className="text-xl font-semibold">
             {t2}
-          </a>
+          </Link>
         </div>
       </div>
     </div>

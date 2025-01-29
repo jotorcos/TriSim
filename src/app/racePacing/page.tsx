@@ -13,7 +13,7 @@ export default function RacePacing() {
   const { translations, error } = useTranslations('racePacing');
 
   if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return <div>Loading...</div>;
+  if (!translations) return '';
 
   const {
     title,

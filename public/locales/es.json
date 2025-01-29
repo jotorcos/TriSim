@@ -4,12 +4,12 @@
     "intro": "TriSim es tu compañero perfecto para entrenar y mejorar en triatlón. Aprende, practica y optimiza tus transiciones, estrategias y más.",
     "start": "Comenzar",
     "learnMore": "Aprende más",
-    "racePacing": "Calculadora de Estrategia de Carrera",
+    "racePacing": "Estrategia de Carrera",
     "transitions": "Practica las transiciones",
     "checklist": "Lista de Verificación"
   },
   "racePacing": {
-    "title": "Calculadora de Estrategia de Carrera",
+    "title": "Estrategia de Carrera",
     "description": "Calcula tus tiempos de carrera y establece un ritmo efectivo para cada segmento del triatlón.",
     "swim": "Natación",
     "bike": "Ciclismo",

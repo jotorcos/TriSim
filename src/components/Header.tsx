@@ -26,7 +26,7 @@ export default function Header() {
             isMobileMenuOpen ? 'block' : 'hidden'
           }`}
         >
-          <ul className="flex flex-col lg:flex-row space-y-4 lg:space-y-0">
+          <ul className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-12">
             <li>
               <Link href="/" className="hover:underline">
                 {translations.home}

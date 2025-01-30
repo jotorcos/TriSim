@@ -1,0 +1,67 @@
+{
+  "home": {
+    "welcome": "Bienvenido a TriSim",
+    "intro": "TriSim es tu compañero perfecto para entrenar y mejorar en triatlón. Aprende, practica y optimiza tus transiciones, estrategias y más.",
+    "start": "Comenzar",
+    "learnMore": "Aprende más",
+    "racePacing": "Estrategia de Carrera",
+    "transitions": "Practica las transiciones",
+    "checklist": "Checklist"
+  },
+  "racePacing": {
+    "title": "Estrategia de Carrera",
+    "description": "Calcula tus tiempos de carrera y establece un ritmo efectivo para cada segmento del triatlón.",
+    "swim": "Natación",
+    "bike": "Ciclismo",
+    "run": "Carrera a pie",
+    "totalTime": "Tiempo total estimado",
+    "calculate": "Calcular"
+  },
+  "transitions": {
+    "title": "Practica las Transiciones",
+    "intro": "Domina las transiciones entre las disciplinas para optimizar tu rendimiento en carrera.",
+    "t1": "Transición 1 (Natación a Ciclismo)",
+    "t2": "Transición 2 (Ciclismo a Carrera a pie)",
+    "practiceNow": "Practica ahora",
+    "goggles": "Quitar gafas de natación",
+    "helmet": "Ponerse el casco",
+    "bib": "Poner portadorsal",
+    "bike": "Coger bicicleta",
+    "time": "Tiempo",
+    "startTimer": "Iniciar cronómetro",
+    "stopTimer": "Detener cronómetro",
+    "reset": "Reiniciar"
+  },
+  "checklist": {
+    "title": "Checklist para el Día de la Carrera",
+    "intro": "Asegúrate de no olvidar nada el día de la carrera con nuestra checklist.",
+    "save": "Guardar Lista",
+    "items": [
+      "Tritraje",
+      "Gafas de natación",
+      "Zapatillas de correr (con cordones elásticos)",
+      "Bici",
+      "Zapatillas bici",
+      "Dorsal",
+      "Portadorsal",
+      "Chip de cronometraje"
+    ]
+  },
+  "header": {
+    "welcome": "TriSim",
+    "home": "Inicio",
+    "racePacing": "Tiempos",
+    "transitions": "Transiciones"
+  },
+  "goBack": {
+    "back": "Atrás"
+  },
+  "footer": {
+    "footerText": "© 2025 TriSim. Todos los derechos reservados.",
+    "contact": "Contacto"
+  },
+  "card": {
+    "learnMore": "Ver",
+    "practiceNow": "Practica ahora"
+  }
+}

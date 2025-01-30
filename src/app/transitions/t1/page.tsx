@@ -14,7 +14,6 @@ export default function TransitionT1() {
     'playing'
   );
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [isJumping, setIsJumping] = useState<boolean>(false); // Track if Mario is jumping
   const correctSequence = ['removeGoggles', 'putHelmet', 'putBib', 'grabBike'];
   const finishLine = 90; // Finish line at 90% of the screen width
   let interval: ReturnType<typeof setInterval> | undefined;
@@ -26,11 +25,9 @@ export default function TransitionT1() {
       setStep((prev) => prev + 1); // Move to the next step
 
       // Trigger jump animation
-      setIsJumping(true);
       setMarioVerticalPosition(37); // Jump up
       setTimeout(() => {
         setMarioVerticalPosition(0); // Fall back down
-        setIsJumping(false);
       }, 250);
 
       if (step === correctSequence.length - 1) {
@@ -86,7 +83,7 @@ export default function TransitionT1() {
       alt: translations?.t1Steps.putBib,
     },
     grabBike: {
-      src: '/images/grab-bike.jpg',
+      src: '/images/grab-bike.png',
       alt: translations?.t1Steps.grabBike,
     },
   };

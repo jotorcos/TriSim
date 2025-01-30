@@ -35,7 +35,7 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link href="/racePacing" className="hover:underline">
+              <Link href="/race-pacing" className="hover:underline">
                 {translations.racePacing}
               </Link>
             </li>

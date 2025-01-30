@@ -1,35 +1,37 @@
 'use client';
-
 import { useTranslations } from '@/hooks/useTranslations';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function TransitionT1() {
   const { translations, error } = useTranslations('transitions');
-
   // Game state
   const [action, setAction] = useState<string | null>(null);
   const [step, setStep] = useState<number>(0); // Current step in the sequence
-  const [marioPosition, setMarioPosition] = useState<number>(0); // Mario's position from left (0% to 100%)
+  const [marioPosition, setMarioPosition] = useState<number>(0); // Mario's horizontal position (0% to 100%)
+  const [marioVerticalPosition, setMarioVerticalPosition] = useState<number>(0); // Mario's vertical position
   const [gameStatus, setGameStatus] = useState<'playing' | 'won' | 'lost'>(
     'playing'
   );
   const [isActive, setIsActive] = useState<boolean>(false);
-
+  const [isJumping, setIsJumping] = useState<boolean>(false); // Track if Mario is jumping
   const correctSequence = ['removeGoggles', 'putHelmet', 'putBib', 'grabBike'];
   const finishLine = 90; // Finish line at 90% of the screen width
-
   let interval: ReturnType<typeof setInterval> | undefined;
 
   const handleAction = (newAction: string) => {
     if (gameStatus !== 'playing') return;
-
     if (newAction === correctSequence[step]) {
       setAction(newAction);
       setStep((prev) => prev + 1); // Move to the next step
 
-      // Speed up Mario slightly for each correct action
-      // setMarioPosition((prev) => prev + 5);
+      // Trigger jump animation
+      setIsJumping(true);
+      setMarioVerticalPosition(37); // Jump up
+      setTimeout(() => {
+        setMarioVerticalPosition(0); // Fall back down
+        setIsJumping(false);
+      }, 250);
 
       if (step === correctSequence.length - 1) {
         setGameStatus('won'); // Player completed all steps
@@ -45,6 +47,7 @@ export default function TransitionT1() {
     setAction(null);
     setStep(0);
     setMarioPosition(0);
+    setMarioVerticalPosition(0);
     setIsActive(false);
     setGameStatus('playing');
   };
@@ -57,7 +60,6 @@ export default function TransitionT1() {
     } else if (interval !== undefined) {
       clearInterval(interval);
     }
-
     return () => {
       if (interval !== undefined) clearInterval(interval);
     };
@@ -91,9 +93,7 @@ export default function TransitionT1() {
 
   const renderActionImage = () => {
     const image = actionImages[action as keyof typeof actionImages];
-
     if (!image) return null;
-
     return (
       <Image
         src={image.src}
@@ -113,16 +113,17 @@ export default function TransitionT1() {
       <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4 text-center">
         {translations.t1}
       </h1>
-
       <div className="mb-4">
         <p>{translations.intro}</p>
       </div>
-
       {/* Mario Sprite and Track */}
       <div className="w-full h-20 bg-gray-300 relative mb-8">
         <div
-          className="absolute bottom-0 left-0 transition-all duration-100 ease-linear"
-          style={{ left: `${marioPosition}%` }}
+          className="absolute transition-transform duration-500 ease-in-out"
+          style={{
+            left: `${marioPosition}%`,
+            bottom: `${marioVerticalPosition}px`,
+          }}
         >
           <Image src="/images/mario.jpg" alt="Mario" width={50} height={50} />
         </div>
@@ -135,7 +136,6 @@ export default function TransitionT1() {
           </span>
         </div>
       </div>
-
       {/* Action Buttons */}
       <div className="flex flex-col items-center space-y-4 mb-8">
         {correctSequence.map((actionKey) => (
@@ -149,21 +149,17 @@ export default function TransitionT1() {
           </button>
         ))}
       </div>
-
       {/* Action Image */}
       <div className="mb-6">{renderActionImage()}</div>
-
       {/* Game Status */}
       {gameStatus === 'won' && (
         <div className="text-4xl font-bold text-green-600 mb-4">
           You Win! 🎉
         </div>
       )}
-
       {gameStatus === 'lost' && (
         <div className="text-4xl font-bold text-red-600 mb-4">You Lose! 😢</div>
       )}
-
       {/* Start/Reset Buttons */}
       <button
         className="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-300"
@@ -172,7 +168,6 @@ export default function TransitionT1() {
       >
         {isActive ? translations.stopTimer : translations.startTimer}
       </button>
-
       <button
         className="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300 mt-4"
         onClick={resetGame}

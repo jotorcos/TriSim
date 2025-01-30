@@ -133,8 +133,22 @@ export default function TransitionT1() {
           </span>
         </div>
       </div>
+      {/* Start/Reset Buttons */}
+      <button
+        className="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-300"
+        onClick={() => setIsActive(!isActive)}
+        disabled={gameStatus !== 'playing'}
+      >
+        {isActive ? translations.stopTimer : translations.startTimer}
+      </button>
+      <button
+        className="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300 mt-4"
+        onClick={resetGame}
+      >
+        {translations.reset}
+      </button>
       {/* Action Buttons */}
-      <div className="flex flex-col items-center space-y-4 mb-8">
+      <div className="flex flex-col items-center space-y-4 my-8">
         {correctSequence.map((actionKey) => (
           <button
             key={actionKey}
@@ -157,20 +171,6 @@ export default function TransitionT1() {
       {gameStatus === 'lost' && (
         <div className="text-4xl font-bold text-red-600 mb-4">You Lose! 😢</div>
       )}
-      {/* Start/Reset Buttons */}
-      <button
-        className="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-300"
-        onClick={() => setIsActive(!isActive)}
-        disabled={gameStatus !== 'playing'}
-      >
-        {isActive ? translations.stopTimer : translations.startTimer}
-      </button>
-      <button
-        className="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300 mt-4"
-        onClick={resetGame}
-      >
-        {translations.reset}
-      </button>
     </div>
   );
 }

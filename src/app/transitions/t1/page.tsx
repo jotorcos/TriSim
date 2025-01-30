@@ -5,37 +5,47 @@ import { useEffect, useState } from 'react';
 
 export default function TransitionT1() {
   const { translations, error } = useTranslations('transitions');
-  // Game state
+
   const [action, setAction] = useState<string | null>(null);
-  const [step, setStep] = useState<number>(0); // Current step in the sequence
-  const [marioPosition, setMarioPosition] = useState<number>(0); // Mario's horizontal position (0% to 100%)
-  const [marioVerticalPosition, setMarioVerticalPosition] = useState<number>(0); // Mario's vertical position
+  const [step, setStep] = useState<number>(0);
+  const [marioPosition, setMarioPosition] = useState<number>(0);
+  const [marioVerticalPosition, setMarioVerticalPosition] = useState<number>(0);
   const [gameStatus, setGameStatus] = useState<'playing' | 'won' | 'lost'>(
     'playing'
   );
   const [isActive, setIsActive] = useState<boolean>(false);
+
   const correctSequence = ['removeGoggles', 'putHelmet', 'putBib', 'grabBike'];
-  const finishLine = 90; // Finish line at 90% of the screen width
+  const [shuffledSequence, setShuffledSequence] = useState<string[]>([]);
+
+  const finishLine = 90;
   let interval: ReturnType<typeof setInterval> | undefined;
+
+  useEffect(() => {
+    setShuffledSequence(shuffleArray(correctSequence)); // Shuffle on initial render
+  }, []);
+
+  const shuffleArray = (array: string[]) => {
+    return [...array].sort(() => Math.random() - 0.5);
+  };
 
   const handleAction = (newAction: string) => {
     if (gameStatus !== 'playing') return;
     if (newAction === correctSequence[step]) {
       setAction(newAction);
-      setStep((prev) => prev + 1); // Move to the next step
+      setStep((prev) => prev + 1);
 
-      // Trigger jump animation
-      setMarioVerticalPosition(37); // Jump up
+      setMarioVerticalPosition(37);
       setTimeout(() => {
-        setMarioVerticalPosition(0); // Fall back down
+        setMarioVerticalPosition(0);
       }, 250);
 
       if (step === correctSequence.length - 1) {
-        setGameStatus('won'); // Player completed all steps
+        setGameStatus('won');
         setIsActive(false);
       }
     } else {
-      setGameStatus('lost'); // Player failed the sequence
+      setGameStatus('lost');
       setIsActive(false);
     }
   };
@@ -47,13 +57,19 @@ export default function TransitionT1() {
     setMarioVerticalPosition(0);
     setIsActive(false);
     setGameStatus('playing');
+    setShuffledSequence(shuffleArray(correctSequence)); // Shuffle on reset
+  };
+
+  const startGame = () => {
+    setIsActive(true);
+    setShuffledSequence(shuffleArray(correctSequence)); // Shuffle when starting
   };
 
   useEffect(() => {
     if (isActive && gameStatus === 'playing') {
       interval = setInterval(() => {
-        setMarioPosition((prev) => prev + 1); // Move Mario to the right
-      }, 100); // Adjust speed here
+        setMarioPosition((prev) => prev + 1);
+      }, 100);
     } else if (interval !== undefined) {
       clearInterval(interval);
     }
@@ -64,7 +80,7 @@ export default function TransitionT1() {
 
   useEffect(() => {
     if (marioPosition >= finishLine && gameStatus === 'playing') {
-      setGameStatus('lost'); // Mario reached the finish line
+      setGameStatus('lost');
       setIsActive(false);
     }
   }, [marioPosition, gameStatus]);
@@ -91,15 +107,7 @@ export default function TransitionT1() {
   const renderActionImage = () => {
     const image = actionImages[action as keyof typeof actionImages];
     if (!image) return null;
-    return (
-      <Image
-        src={image.src}
-        alt={image.alt}
-        width={250}
-        height={250}
-        style={{ objectFit: 'fill' }}
-      />
-    );
+    return <Image src={image.src} alt={image.alt} width={250} height={250} />;
   };
 
   if (error) return <div>Error loading translations: {error}</div>;
@@ -113,7 +121,8 @@ export default function TransitionT1() {
       <div className="mb-4">
         <p>{translations.intro}</p>
       </div>
-      {/* Mario Sprite and Track */}
+
+      {/* Mario Track */}
       <div className="w-full h-20 bg-gray-300 relative mb-8">
         <div
           className="absolute transition-transform duration-500 ease-in-out"
@@ -133,23 +142,25 @@ export default function TransitionT1() {
           </span>
         </div>
       </div>
+
       {/* Start/Reset Buttons */}
       <button
-        className="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-300"
-        onClick={() => setIsActive(!isActive)}
+        className="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out"
+        onClick={startGame}
         disabled={gameStatus !== 'playing'}
       >
         {isActive ? translations.stopTimer : translations.startTimer}
       </button>
       <button
-        className="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300 mt-4"
+        className="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-500 transition duration-300 ease-in-out mt-4"
         onClick={resetGame}
       >
         {translations.reset}
       </button>
-      {/* Action Buttons */}
+
+      {/* Action Buttons (Shuffled) */}
       <div className="flex flex-col items-center space-y-4 my-8">
-        {correctSequence.map((actionKey) => (
+        {shuffledSequence.map((actionKey) => (
           <button
             key={actionKey}
             className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-500 transition duration-300 ease-in-out"
@@ -160,8 +171,10 @@ export default function TransitionT1() {
           </button>
         ))}
       </div>
+
       {/* Action Image */}
       <div className="mb-6">{renderActionImage()}</div>
+
       {/* Game Status */}
       {gameStatus === 'won' && (
         <div className="text-4xl font-bold text-green-600 mb-4">

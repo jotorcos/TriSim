@@ -29,7 +29,7 @@ export default function TransitionT1() {
       setStep((prev) => prev + 1); // Move to the next step
 
       // Speed up Mario slightly for each correct action
-      setMarioPosition((prev) => prev + 5);
+      // setMarioPosition((prev) => prev + 5);
 
       if (step === correctSequence.length - 1) {
         setGameStatus('won'); // Player completed all steps
@@ -138,7 +138,7 @@ export default function TransitionT1() {
 
       {/* Action Buttons */}
       <div className="flex flex-col items-center space-y-4 mb-8">
-        {correctSequence.map((actionKey, index) => (
+        {correctSequence.map((actionKey) => (
           <button
             key={actionKey}
             className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-500 transition duration-300 ease-in-out"

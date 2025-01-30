@@ -9,7 +9,7 @@ export default function Transitions() {
   if (error) return <div>Error loading translations: {error}</div>;
   if (!translations) return '';
 
-  const { title, intro, t1, t2, practiceNow } = translations;
+  const { title, intro, t1, t2 } = translations;
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 px-4 sm:px-8 lg:px-16 py-8">

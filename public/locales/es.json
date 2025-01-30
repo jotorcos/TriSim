@@ -23,10 +23,12 @@
     "t1": "Transición 1 (Natación a Ciclismo)",
     "t2": "Transición 2 (Ciclismo a Carrera a pie)",
     "practiceNow": "Practica ahora",
-    "goggles": "Quitar gafas de natación",
-    "helmet": "Ponerse el casco",
-    "bib": "Poner portadorsal",
-    "bike": "Coger bicicleta",
+    "t1Steps": {
+      "removeGoggles": "Quitar gafas de natación",
+      "putHelmet": "Ponerse el casco",
+      "putBib": "Poner portadorsal",
+      "grabBike": "Coger bicicleta"
+    },
     "time": "Tiempo",
     "startTimer": "Iniciar cronómetro",
     "stopTimer": "Detener cronómetro",

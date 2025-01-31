@@ -13,6 +13,8 @@ export default function TransitionT1() {
     'playing'
   );
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [runningSprite, setRunningSprite] = useState<number>(1);
+
   const correctSequence = ['removeGoggles', 'putHelmet', 'putBib', 'grabBike'];
   const [shuffledSequence, setShuffledSequence] = useState<string[]>([]);
   const finishLine = 90;
@@ -64,6 +66,7 @@ export default function TransitionT1() {
     if (isActive && gameStatus === 'playing') {
       interval = setInterval(() => {
         setMarioPosition((prev) => prev + 1);
+        setRunningSprite((prev) => (prev === 1 ? 2 : 1));
       }, 100);
     } else if (interval !== undefined) {
       clearInterval(interval);
@@ -89,10 +92,7 @@ export default function TransitionT1() {
       src: '/images/put-helmet.png',
       alt: translations?.t1Steps.putHelmet,
     },
-    putBib: {
-      src: '/images/put-bib.webp',
-      alt: translations?.t1Steps.putBib,
-    },
+    putBib: { src: '/images/put-bib.webp', alt: translations?.t1Steps.putBib },
     grabBike: {
       src: '/images/grab-bike.png',
       alt: translations?.t1Steps.grabBike,
@@ -116,15 +116,20 @@ export default function TransitionT1() {
       <div className="mb-4">
         <p>{translations.intro}</p>
       </div>
-      <div className="w-full h-20 bg-gray-300 relative mb-8">
+      <div className="w-full h-60 bg-[url(/images/mario-background.png)] bg-bottom relative mb-8">
         <div
           className="absolute transition-transform duration-500 ease-in-out"
           style={{
             left: `${marioPosition}%`,
-            bottom: `${marioVerticalPosition}px`,
+            bottom: `${60 + marioVerticalPosition}px`,
           }}
         >
-          <Image src="/images/mario.jpg" alt="Mario" width={50} height={50} />
+          <Image
+            src={`/images/mario-running${runningSprite}.png`}
+            alt="Mario"
+            width={50}
+            height={50}
+          />
         </div>
         <div
           className="absolute bottom-0 right-0 h-full w-2 bg-red-600"

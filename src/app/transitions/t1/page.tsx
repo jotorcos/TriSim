@@ -190,18 +190,18 @@ export default function TransitionT1() {
           style={{ left: `${finishLine}%` }}
         >
           <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-red-600 font-bold">
-            Finish
+            {translations.finish}
           </span>
         </div>
 
         {gameStatus === 'won' && (
           <div className="text-4xl flex justify-center items-center bg-white h-20 font-bold text-green-600 mb-4">
-            You Win! 🎉
+            {translations.win}
           </div>
         )}
         {gameStatus === 'lost' && (
           <div className="text-4xl flex justify-center items-center bg-white h-20 font-bold text-red-600 mb-4">
-            You Lose! 😢
+            {translations.lose}
           </div>
         )}
       </div>
@@ -215,9 +215,9 @@ export default function TransitionT1() {
         {shuffledSequence.map((actionKey) => (
           <button
             key={actionKey}
-            className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-500 transition duration-300 ease-in-out"
+            className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-500 transition duration-300 ease-in-out disabled:opacity-70"
             onClick={() => handleAction(actionKey)}
-            disabled={gameStatus !== 'playing'}
+            disabled={!isActive}
           >
             {translations.t1Steps[actionKey]}
           </button>

@@ -32,7 +32,10 @@
     "time": "Tiempo",
     "startTimer": "Start",
     "stopTimer": "Stop",
-    "reset": "Reiniciar"
+    "reset": "Reiniciar",
+    "finish": "Finish",
+    "win": "You Win! 🎉",
+    "lose": "You Lose! 😢"
   },
   "checklist": {
     "title": "Checklist para el Día de la Carrera",

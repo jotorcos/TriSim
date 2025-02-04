@@ -1,3 +1,4 @@
+import { EmptyState } from '@/components/EmptyState';
 import { useTranslations } from '@/hooks/useTranslations';
 
 interface GameControlsProps {
@@ -14,7 +15,7 @@ export function GameControls({
   onToggleGame,
 }: GameControlsProps) {
   const { translations } = useTranslations('transitions');
-  if (!translations) return null;
+  if (!translations) return <EmptyState />;
 
   return (
     <>

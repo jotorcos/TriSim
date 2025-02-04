@@ -2,12 +2,14 @@
 
 import { useTranslations } from '@/hooks/useTranslations';
 import Link from 'next/link';
+import { EmptyState } from './EmptyState';
+import { ErrorDisplay } from './ErrorDisplay';
 
 export default function Footer() {
   const { translations, error } = useTranslations('footer');
 
-  if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return '';
+  if (error) return <ErrorDisplay message={error} />;
+  if (!translations) return <EmptyState />;
 
   return (
     <footer className="bg-gray-800 text-white py-4">

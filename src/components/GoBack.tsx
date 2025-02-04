@@ -2,6 +2,8 @@
 
 import { useTranslations } from '@/hooks/useTranslations';
 import { usePathname, useRouter } from 'next/navigation';
+import { EmptyState } from './EmptyState';
+import { ErrorDisplay } from './ErrorDisplay';
 
 export default function GoBack() {
   const router = useRouter();
@@ -9,8 +11,8 @@ export default function GoBack() {
 
   const { translations, error } = useTranslations('goBack');
 
-  if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return '';
+  if (error) return <ErrorDisplay message={error} />;
+  if (!translations) return <EmptyState />;
 
   // Function to handle the back navigation
   const goBack = () => {

@@ -1,12 +1,14 @@
 'use client';
 
+import { EmptyState } from '@/components/EmptyState';
+import { ErrorDisplay } from '@/components/ErrorDisplay';
 import { useTranslations } from '@/hooks/useTranslations';
 
 export default function TransitionT2() {
   const { translations, error } = useTranslations('transitions');
 
-  if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return '';
+  if (error) return <ErrorDisplay message={error} />;
+  if (!translations) return <EmptyState />;
 
   const { t2, practiceNow } = translations;
 

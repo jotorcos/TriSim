@@ -1,4 +1,6 @@
 'use client';
+import { EmptyState } from '@/components/EmptyState';
+import { ErrorDisplay } from '@/components/ErrorDisplay';
 import { useTranslations } from '@/hooks/useTranslations';
 import { GameBoard } from './components/GameBoard';
 import { GameControls } from './components/GameControls';
@@ -20,8 +22,8 @@ export default function TransitionT1() {
     toggleGame,
   } = useGameLogic();
 
-  if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return '';
+  if (error) return <ErrorDisplay message={error} />;
+  if (!translations) return <EmptyState />;
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 px-4 sm:px-8 lg:px-16 py-8">

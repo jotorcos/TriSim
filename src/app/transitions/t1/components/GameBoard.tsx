@@ -1,3 +1,4 @@
+import { EmptyState } from '@/components/EmptyState';
 import { useTranslations } from '@/hooks/useTranslations';
 import Image from 'next/image';
 
@@ -21,7 +22,7 @@ export function GameBoard({
   gameStatus,
 }: GameBoardProps) {
   const { translations } = useTranslations('transitions');
-  if (!translations) return null;
+  if (!translations) return <EmptyState />;
 
   const actionImages = {
     removeGoggles: {

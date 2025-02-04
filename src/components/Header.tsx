@@ -3,13 +3,15 @@
 import { useTranslations } from '@/hooks/useTranslations';
 import Link from 'next/link';
 import { useState } from 'react';
+import { EmptyState } from './EmptyState';
+import { ErrorDisplay } from './ErrorDisplay';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { translations, error } = useTranslations('header');
 
-  if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return '';
+  if (error) return <ErrorDisplay message={error} />;
+  if (!translations) return <EmptyState />;
 
   return (
     <header className="bg-blue-600 text-white p-4">

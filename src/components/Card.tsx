@@ -2,6 +2,8 @@
 
 import { useTranslations } from '@/hooks/useTranslations';
 import Link from 'next/link';
+import { EmptyState } from './EmptyState';
+import { ErrorDisplay } from './ErrorDisplay';
 
 interface CardProps {
   title: string;
@@ -12,8 +14,8 @@ interface CardProps {
 export default function Card({ title, description, link }: CardProps) {
   const { translations, error } = useTranslations('card');
 
-  if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return '';
+  if (error) return <ErrorDisplay message={error} />;
+  if (!translations) return <EmptyState />;
 
   return (
     <Link

@@ -1,13 +1,15 @@
 'use client';
 
 import Card from '@/components/Card';
+import { EmptyState } from '@/components/EmptyState';
+import { ErrorDisplay } from '@/components/ErrorDisplay';
 import { useTranslations } from '@/hooks/useTranslations';
 
 export default function Home() {
   const { translations, error } = useTranslations('home');
 
-  if (error) return <div>Error loading translations: {error}</div>;
-  if (!translations) return '';
+  if (error) return <ErrorDisplay message={error} />;
+  if (!translations) return <EmptyState />;
 
   return (
     <>

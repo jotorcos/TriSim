@@ -7,8 +7,40 @@ export default function TransitionT1() {
   const { translations, error } = useTranslations('transitions');
   const [action, setAction] = useState<string | null>(null);
   const [step, setStep] = useState<number>(0);
+  const INITIAL_MARIO_VERTICAL_POSITION_DESKTOP = 91;
+  const INITIAL_MARIO_VERTICAL_POSITION_MOBILE = 48;
+  const [initialMarioVerticalPosition, setInitialMarioVerticalPosition] =
+    useState<number>(INITIAL_MARIO_VERTICAL_POSITION_DESKTOP); // Default to desktop value
+
+  const MARIO_HEIGHT = 100;
+  const MARIO_JUMP_HEIGHT = 70;
+  const BOX_HEIGHT =
+    initialMarioVerticalPosition + MARIO_HEIGHT + MARIO_JUMP_HEIGHT;
   const [marioPosition, setMarioPosition] = useState<number>(0);
-  const [marioVerticalPosition, setMarioVerticalPosition] = useState<number>(0);
+  const [marioVerticalPosition, setMarioVerticalPosition] = useState<number>(
+    INITIAL_MARIO_VERTICAL_POSITION_DESKTOP
+  ); // Default to desktop value
+
+  useEffect(() => {
+    const updateMarioPosition = () => {
+      const newPosition =
+        window.innerWidth < 640
+          ? INITIAL_MARIO_VERTICAL_POSITION_MOBILE
+          : INITIAL_MARIO_VERTICAL_POSITION_DESKTOP;
+      setInitialMarioVerticalPosition(newPosition);
+      setMarioVerticalPosition(newPosition);
+    };
+
+    // Run once on mount
+    updateMarioPosition();
+
+    // Listen for screen resizing
+    window.addEventListener('resize', updateMarioPosition);
+    return () => window.removeEventListener('resize', updateMarioPosition);
+  }, []);
+  const [jumpedActions, setJumpedActions] = useState<
+    { position: number; action: string }[]
+  >([]);
   const [gameStatus, setGameStatus] = useState<'playing' | 'won' | 'lost'>(
     'playing'
   );
@@ -33,10 +65,20 @@ export default function TransitionT1() {
     if (newAction === correctSequence[step]) {
       setAction(newAction);
       setStep((prev) => prev + 1);
-      setMarioVerticalPosition(37);
+      setMarioVerticalPosition(
+        initialMarioVerticalPosition + MARIO_JUMP_HEIGHT
+      );
+
+      // Store the jump position and action
+      setJumpedActions((prev) => [
+        ...prev,
+        { position: marioPosition, action: newAction },
+      ]);
+
       setTimeout(() => {
-        setMarioVerticalPosition(0);
+        setMarioVerticalPosition(initialMarioVerticalPosition);
       }, 250);
+
       if (step === correctSequence.length - 1) {
         setGameStatus('won');
         setIsActive(false);
@@ -55,10 +97,11 @@ export default function TransitionT1() {
       setAction(null);
       setStep(0);
       setMarioPosition(0);
-      setMarioVerticalPosition(0);
+      setMarioVerticalPosition(initialMarioVerticalPosition);
       setGameStatus('playing');
       setIsActive(true);
       setShuffledSequence(shuffleArray(correctSequence));
+      setJumpedActions([]);
     }
   };
 
@@ -85,24 +128,18 @@ export default function TransitionT1() {
 
   const actionImages = {
     removeGoggles: {
-      src: '/images/remove-goggles.png',
+      src: '/images/remove-goggles.jpg',
       alt: translations?.t1Steps.removeGoggles,
     },
     putHelmet: {
-      src: '/images/put-helmet.png',
+      src: '/images/put-helmet.jpg',
       alt: translations?.t1Steps.putHelmet,
     },
-    putBib: { src: '/images/put-bib.webp', alt: translations?.t1Steps.putBib },
+    putBib: { src: '/images/put-bib.png', alt: translations?.t1Steps.putBib },
     grabBike: {
-      src: '/images/grab-bike.png',
+      src: '/images/grab-bike2.jpg',
       alt: translations?.t1Steps.grabBike,
     },
-  };
-
-  const renderActionImage = () => {
-    const image = actionImages[action as keyof typeof actionImages];
-    if (!image) return null;
-    return <Image src={image.src} alt={image.alt} width={250} height={250} />;
   };
 
   if (error) return <div>Error loading translations: {error}</div>;
@@ -116,12 +153,30 @@ export default function TransitionT1() {
       <div className="mb-4">
         <p>{translations.intro}</p>
       </div>
-      <div className="w-full h-60 bg-[url(/images/mario-background.png)] bg-bottom relative mb-8">
+      <div className="w-full max-w-[1200px] h-[22rem] sm:h-[42rem] bg-[url(/images/mario-background-large.jpg)] bg-bottom bg-cover relative mb-8">
+        {/* Render stored action images at static positions */}
+        {jumpedActions.map(({ position, action }, index) => {
+          const image = actionImages[action as keyof typeof actionImages];
+          return (
+            <div
+              key={index}
+              className="absolute transition-opacity duration-500"
+              style={{
+                left: `${position}%`, // Keep it where Mario jumped
+                bottom: `${BOX_HEIGHT}px`, // Adjust height to keep it above ground
+              }}
+            >
+              <Image src={image.src} alt={image.alt} width={60} height={660} />
+            </div>
+          );
+        })}
+
+        {/* Mario */}
         <div
           className="absolute transition-transform duration-500 ease-in-out"
           style={{
             left: `${marioPosition}%`,
-            bottom: `${60 + marioVerticalPosition}px`,
+            bottom: `${marioVerticalPosition}px`,
           }}
         >
           <Image
@@ -131,6 +186,8 @@ export default function TransitionT1() {
             height={50}
           />
         </div>
+
+        {/* Finish Line */}
         <div
           className="absolute bottom-0 right-0 h-full w-2 bg-red-600"
           style={{ left: `${finishLine}%` }}
@@ -139,6 +196,17 @@ export default function TransitionT1() {
             Finish
           </span>
         </div>
+
+        {gameStatus === 'won' && (
+          <div className="text-4xl flex justify-center items-center bg-white h-20 font-bold text-green-600 mb-4">
+            You Win! 🎉
+          </div>
+        )}
+        {gameStatus === 'lost' && (
+          <div className="text-4xl flex justify-center items-center bg-white h-20 font-bold text-red-600 mb-4">
+            You Lose! 😢
+          </div>
+        )}
       </div>
       <button
         className="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out"
@@ -158,15 +226,6 @@ export default function TransitionT1() {
           </button>
         ))}
       </div>
-      <div className="mb-6">{renderActionImage()}</div>
-      {gameStatus === 'won' && (
-        <div className="text-4xl font-bold text-green-600 mb-4">
-          You Win! 🎉
-        </div>
-      )}
-      {gameStatus === 'lost' && (
-        <div className="text-4xl font-bold text-red-600 mb-4">You Lose! 😢</div>
-      )}
     </div>
   );
 }

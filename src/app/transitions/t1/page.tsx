@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 
 export default function TransitionT1() {
   const { translations, error } = useTranslations('transitions');
-  const [action, setAction] = useState<string | null>(null);
   const [step, setStep] = useState<number>(0);
   const INITIAL_MARIO_VERTICAL_POSITION_DESKTOP = 91;
   const INITIAL_MARIO_VERTICAL_POSITION_MOBILE = 48;
@@ -63,7 +62,6 @@ export default function TransitionT1() {
   const handleAction = (newAction: string) => {
     if (gameStatus !== 'playing') return;
     if (newAction === correctSequence[step]) {
-      setAction(newAction);
       setStep((prev) => prev + 1);
       setMarioVerticalPosition(
         initialMarioVerticalPosition + MARIO_JUMP_HEIGHT
@@ -94,7 +92,6 @@ export default function TransitionT1() {
       setIsActive(false);
       setGameStatus('lost');
     } else {
-      setAction(null);
       setStep(0);
       setMarioPosition(0);
       setMarioVerticalPosition(initialMarioVerticalPosition);

@@ -30,8 +30,8 @@
       "grabBike": "Coger bicicleta"
     },
     "time": "Tiempo",
-    "startTimer": "Iniciar cronómetro",
-    "stopTimer": "Detener cronómetro",
+    "startTimer": "Start",
+    "stopTimer": "Stop",
     "reset": "Reiniciar"
   },
   "checklist": {
